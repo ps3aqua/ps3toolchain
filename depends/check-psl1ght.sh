@@ -9,3 +9,9 @@ if test ! $PSL1GHT; then { echo "ERROR: Set \$PSL1GHT before continuing."; exit 
 
 ## Check for write permission.
 touch $PSL1GHT/test.tmp 1>/dev/null 2>&1 || { echo "ERROR: Grant write permissions for $PSL1GHT before continuing."; exit 1; }
+
+case `uname -s` in
+    'Darwin')
+    7z 1>/dev/null 2>&1 || { echo "ERROR: Install 7z before continuing."; exit 1; }
+    ;;
+esac

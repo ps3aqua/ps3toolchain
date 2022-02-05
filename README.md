@@ -33,7 +33,14 @@
   be enough to install everything necessary:
 
 ```bash
-brew install autoconf automake openssl libelf ncurses zlib gmp wget pkg-config
+brew install autoconf automake openssl libelf ncurses zlib gmp wget pkg-config p7zip
+```
+
+  If you have [MacPorts](http://macports.org), the following command line should
+  be enough to install everything necessary:
+
+```bash
+sudo port install autoconf automake openssl libelf ncurses zlib gmp wget pkgconfig p7zip
 ```
 
  2) Add the following to your login script:
