@@ -1,7 +1,7 @@
 #!/bin/sh -e
 # binutils-PPU.sh by Naomi Peori (naomi@peori.ca)
 
-BINUTILS="binutils-2.22"
+BINUTILS="binutils-2.37"
 
 if [ ! -d ${BINUTILS} ]; then
 
@@ -16,7 +16,7 @@ if [ ! -d ${BINUTILS} ]; then
   tar xfj ${BINUTILS}.tar.bz2
 
   ## Patch the source code.
-  cat ../patches/${BINUTILS}-PS3.patch | patch -p1 -d ${BINUTILS}
+  if [ -f ../patches/${BINUTILS}-PS3.patch ]; then cat ../patches/${BINUTILS}-PS3.patch | patch -p1 -d ${BINUTILS}; fi
 
   ## Replace config.guess and config.sub
   cp config.guess config.sub ${BINUTILS}
