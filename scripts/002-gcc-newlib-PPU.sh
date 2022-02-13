@@ -1,8 +1,8 @@
 #!/bin/sh -e
 # gcc-newlib-PPU.sh by Naomi Peori (naomi@peori.ca)
 
-GCC="gcc-7.2.0"
 NEWLIB="newlib-1.20.0"
+GCC="gcc-7.5.0"
 
 if [ ! -d ${GCC} ]; then
 
