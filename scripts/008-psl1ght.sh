@@ -11,4 +11,6 @@ rm -Rf psl1ght && mkdir psl1ght && tar --strip-components=1 --directory=psl1ght 
 cd psl1ght
 
 ## Compile and install.
-${MAKE:-make} install-ctrl && ${MAKE:-make} && ${MAKE:-make} install
+PROCS="$(grep -c '^processor' /proc/cpuinfo 2>/dev/null)" || ret=$?
+if [ ! -z $ret ]; then PROCS="$(sysctl -n hw.ncpu 2>/dev/null)"; fi
+${MAKE:-make} install-ctrl && ${MAKE:-make} -j $PROCS && ${MAKE:-make} install

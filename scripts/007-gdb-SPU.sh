@@ -40,6 +40,6 @@ cd ${GDB}/build-spu
     --disable-werror
 
 ## Compile and install.
-PROCS="$(nproc --all 2>&1)" || ret=$?
-if [ ! -z $ret ]; then PROCS=4; fi
+PROCS="$(grep -c '^processor' /proc/cpuinfo 2>/dev/null)" || ret=$?
+if [ ! -z $ret ]; then PROCS="$(sysctl -n hw.ncpu 2>/dev/null)"; fi
 ${MAKE:-make} -j $PROCS && ${MAKE:-make} libdir=host-libs/lib install
