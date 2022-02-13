@@ -13,7 +13,7 @@ if [ ! -d ${BINUTILS} ]; then
   if [ ! -f config.sub ]; then wget --continue https://git.savannah.gnu.org/cgit/config.git/plain/config.sub; fi
 
   ## Unpack the source code.
-  tar xfvj ${BINUTILS}.tar.bz2
+  tar xfj ${BINUTILS}.tar.bz2
 
   ## Patch the source code.
   cat ../patches/${BINUTILS}-PS3.patch | patch -p1 -d ${BINUTILS}

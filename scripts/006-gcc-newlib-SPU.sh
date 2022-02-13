@@ -11,8 +11,8 @@ if [ ! -d ${GCC} ]; then
   if [ ! -f ${NEWLIB}.tar.gz ]; then wget --continue https://sourceware.org/pub/newlib/${NEWLIB}.tar.gz; fi
 
   ## Unpack the source code.
-  rm -Rf ${GCC} && tar xfvJ ${GCC}.tar.xz
-  rm -Rf ${NEWLIB} && tar xfvz ${NEWLIB}.tar.gz
+  rm -Rf ${GCC} && tar xfJ ${GCC}.tar.xz
+  rm -Rf ${NEWLIB} && tar xfz ${NEWLIB}.tar.gz
 
   ## Patch the source code.
   cat ../patches/${GCC}-PS3.patch | patch -p1 -d ${GCC}
