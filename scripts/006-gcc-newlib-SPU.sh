@@ -1,29 +1,29 @@
 #!/bin/sh -e
 # gcc-newlib-SPU.sh by Naomi Peori (naomi@peori.ca)
 
-NEWLIB="newlib-1.20.0"
 GCC="gcc-7.5.0"
+NEWLIB="4.2.0.20211231"
 
 if [ ! -d ${GCC} ]; then
 
   ## Download the source code.
   if [ ! -f ${GCC}.tar.xz ]; then wget --continue https://ftp.gnu.org/gnu/gcc/${GCC}/${GCC}.tar.xz; fi
-  if [ ! -f ${NEWLIB}.tar.gz ]; then wget --continue https://sourceware.org/pub/newlib/${NEWLIB}.tar.gz; fi
+  if [ ! -f newlib-${NEWLIB}.tar.gz ]; then wget --continue https://sourceware.org/pub/newlib/newlib-${NEWLIB}.tar.gz; fi
 
   ## Unpack the source code.
   rm -Rf ${GCC} && tar xfJ ${GCC}.tar.xz
-  rm -Rf ${NEWLIB} && tar xfz ${NEWLIB}.tar.gz
+  rm -Rf newlib-ps3-${NEWLIB} && tar xfz newlib-${NEWLIB}.tar.gz
 
   ## Patch the source code.
   cat ../patches/${GCC}-PS3.patch | patch -p1 -d ${GCC}
-  cat ../patches/${NEWLIB}-PS3.patch | patch -p1 -d ${NEWLIB}
+  cat ../patches/newlib-${NEWLIB}-PS3.patch | patch -p1 -d newlib-${NEWLIB}
 
   ## Enter the source code directory.
   cd ${GCC}
 
   ## Create the newlib symlinks.
-  ln -s ../${NEWLIB}/newlib newlib
-  ln -s ../${NEWLIB}/libgloss libgloss
+  ln -s ../newlib-${NEWLIB}/newlib newlib
+  ln -s ../newlib-${NEWLIB}/libgloss libgloss
 
   ## Download the prerequisites.
   ./contrib/download_prerequisites
@@ -58,7 +58,6 @@ CFLAGS_FOR_TARGET="-Os -fpic -ffast-math -ftree-vectorize -funroll-loops -fsched
     --enable-threads \
     --with-newlib \
     --enable-newlib-multithread \
-    --enable-newlib-hw-fp \
     --with-pic
 
 ## Compile and install.
