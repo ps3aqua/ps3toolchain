@@ -1,0 +1,24 @@
+diff -urp old/readline/rltty.c new/readline/rltty.c
+--- old/readline/rltty.c	2011-05-12 01:38:39.000000000 +0200
++++ new/readline/rltty.c	2022-01-22 15:17:38.000000000 +0100
+@@ -37,7 +37,7 @@
+ 
+ #include "rldefs.h"
+ 
+-#if defined (GWINSZ_IN_SYS_IOCTL)
++#if defined (GWINSZ_IN_SYS_IOCTL) || defined(__APPLE__)
+ #  include <sys/ioctl.h>
+ #endif /* GWINSZ_IN_SYS_IOCTL */
+ 
+diff -urp old/readline/terminal.c new/readline/terminal.c
+--- old/readline/terminal.c	2011-05-12 01:38:39.000000000 +0200
++++ new/readline/terminal.c	2022-01-22 15:27:57.000000000 +0100
+@@ -51,7 +51,7 @@
+ /* System-specific feature definitions and include files. */
+ #include "rldefs.h"
+ 
+-#if defined (GWINSZ_IN_SYS_IOCTL) && !defined (TIOCGWINSZ)
++#if (defined (GWINSZ_IN_SYS_IOCTL) && !defined (TIOCGWINSZ)) || defined(__APPLE__)
+ #  include <sys/ioctl.h>
+ #endif /* GWINSZ_IN_SYS_IOCTL && !TIOCGWINSZ */
+ 

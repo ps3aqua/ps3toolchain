@@ -1,12 +1,12 @@
 #!/bin/sh -e
 # gdb-SPU.sh by Naomi Peori (naomi@peori.ca)
 
-GDB="gdb-7.5.1"
+GDB="gdb-8.3.1"
 
 if [ ! -d ${GDB} ]; then
 
   ## Download the source code.
-  if [ ! -f ${GDB}.tar.bz2 ]; then wget --continue https://ftp.gnu.org/gnu/gdb/${GDB}.tar.bz2; fi
+  if [ ! -f ${GDB}.tar.gz ]; then wget --continue https://ftp.gnu.org/gnu/gdb/${GDB}.tar.gz; fi
 
   ## Download an up-to-date config.guess and config.sub
   if [ ! -f config.guess ]; then wget --continue https://git.savannah.gnu.org/cgit/config.git/plain/config.guess; fi
