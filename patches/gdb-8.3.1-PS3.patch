@@ -22,3 +22,45 @@ diff -urp old/readline/terminal.c new/readline/terminal.c
  #  include <sys/ioctl.h>
  #endif /* GWINSZ_IN_SYS_IOCTL && !TIOCGWINSZ */
  
+diff -urp old/gdb/common/enum-flags.h new/gdb/common/enum-flags.h
+--- old/gdb/common/enum-flags.h	2019-09-21 00:04:41
++++ new/gdb/common/enum-flags.h	2024-04-14 15:53:47
+@@ -81,9 +81,12 @@ struct enum_underlying_type
+ template<typename T>
+ struct enum_underlying_type
+ {
++  DIAGNOSTIC_PUSH
++  DIAGNOSTIC_IGNORE_ENUM_CONSTEXPR_CONVERSION
+   typedef typename
+     integer_for_size<sizeof (T), static_cast<bool>(T (-1) < T (0))>::type
+     type;
++  DIAGNOSTIC_POP
+ };
+ 
+ template <typename E>
+diff -urp old/include/diagnostics.h new/include/diagnostics.h
+--- old/include/diagnostics.h	2019-02-27 05:51:50
++++ new/include/diagnostics.h	2024-04-14 15:55:30
+@@ -63,6 +63,11 @@
+ # define DIAGNOSTIC_IGNORE_FORMAT_NONLITERAL \
+   DIAGNOSTIC_IGNORE ("-Wformat-nonliteral")
+ 
++# if __has_warning ("-Wenum-constexpr-conversion")
++#  define DIAGNOSTIC_IGNORE_ENUM_CONSTEXPR_CONVERSION \
++  DIAGNOSTIC_IGNORE ("-Wenum-constexpr-conversion")
++# endif
++
+ #elif defined (__GNUC__) /* GCC */
+ 
+ # define DIAGNOSTIC_IGNORE_UNUSED_FUNCTION \
+@@ -102,6 +107,10 @@
+ 
+ #ifndef DIAGNOSTIC_IGNORE_FORMAT_NONLITERAL
+ # define DIAGNOSTIC_IGNORE_FORMAT_NONLITERAL
++#endif
++
++#ifndef DIAGNOSTIC_IGNORE_ENUM_CONSTEXPR_CONVERSION
++# define DIAGNOSTIC_IGNORE_ENUM_CONSTEXPR_CONVERSION
+ #endif
+ 
+ #endif /* DIAGNOSTICS_H */
