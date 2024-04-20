@@ -4,22 +4,22 @@
 GCC="gcc-7.5.0"
 NEWLIB="4.2.0.20211231"
 
-if [ ! -d ${GCC} ]; then
+if [ ! -d "${GCC}-SPU" ]; then
 
   ## Download the source code.
   if [ ! -f ${GCC}.tar.xz ]; then wget --continue https://ftp.gnu.org/gnu/gcc/${GCC}/${GCC}.tar.xz; fi
   if [ ! -f newlib-${NEWLIB}.tar.gz ]; then wget --continue https://sourceware.org/pub/newlib/newlib-${NEWLIB}.tar.gz; fi
 
   ## Unpack the source code.
-  rm -Rf ${GCC} && tar xfJ ${GCC}.tar.xz
+  rm -Rf ${GCC}-tmp && mkdir -p ${GCC}-tmp && tar xfJ ${GCC}.tar.xz -C ${GCC}-tmp && mv ${GCC}-tmp/${GCC} ${GCC}-SPU && rm -Rf ${GCC}-tmp
   rm -Rf newlib-ps3-${NEWLIB} && tar xfz newlib-${NEWLIB}.tar.gz
 
   ## Patch the source code.
-  cat ../patches/${GCC}-PS3.patch | patch -p1 -d ${GCC}
+  cat ../patches/${GCC}-PS3.patch | patch -p1 -d ${GCC}-SPU
   cat ../patches/newlib-${NEWLIB}-PS3.patch | patch -p1 -d newlib-${NEWLIB}
 
   ## Enter the source code directory.
-  cd ${GCC}
+  cd ${GCC}-SPU
 
   ## Create the newlib symlinks.
   ln -s ../newlib-${NEWLIB}/newlib newlib
@@ -33,15 +33,15 @@ if [ ! -d ${GCC} ]; then
 
 fi
 
-if [ ! -d ${GCC}/build-spu ]; then
+if [ ! -d ${GCC}-SPU/build-spu ]; then
 
   ## Create the build directory.
-  mkdir ${GCC}/build-spu
+  mkdir ${GCC}-SPU/build-spu
 
 fi
 
 ## Enter the build directory.
-cd ${GCC}/build-spu
+cd ${GCC}-SPU/build-spu
 
 ## Configure the build.
 CFLAGS_FOR_TARGET="-Os -fpic -ffast-math -ftree-vectorize -funroll-loops -fschedule-insns -mdual-nops -mwarn-reloc" \
