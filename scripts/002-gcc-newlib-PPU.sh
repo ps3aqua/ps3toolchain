@@ -2,7 +2,7 @@
 # gcc-newlib-PPU.sh by Naomi Peori (naomi@peori.ca)
 
 GCC="gcc-7.5.0"
-NEWLIB="4.2.0.20211231"
+NEWLIB="4.4.0.20231231"
 
 if [ ! -d ${GCC} ]; then
 
@@ -16,7 +16,7 @@ if [ ! -d ${GCC} ]; then
 
   ## Patch the source code.
   cat ../patches/${GCC}-PS3.patch | patch -p1 -d ${GCC}
-  cat ../patches/newlib-${NEWLIB}-PS3.patch | patch -p1 -d newlib-${NEWLIB}
+  cat ../patches/newlib-${NEWLIB}-PS3-PPU.patch | patch -p1 -d newlib-${NEWLIB}
 
   ## Enter the source code directory.
   cd ${GCC}
