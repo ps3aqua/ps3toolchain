@@ -37,7 +37,8 @@ cd ${GDB}/build-spu
 ../configure --prefix="$PS3DEV/spu" --target="spu" \
     --disable-nls \
     --disable-sim \
-    --disable-werror
+    --disable-werror \
+    --without-python
 
 ## Compile and install.
 PROCS="$(grep -c '^processor' /proc/cpuinfo 2>/dev/null)" || ret=$?
