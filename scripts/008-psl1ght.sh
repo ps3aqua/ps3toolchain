@@ -1,7 +1,7 @@
 #!/bin/sh -e
 # psl1ght.sh by Naomi Peori (naomi@peori.ca)
 
-PSL1GHT_VERSION=${PSL1GHT_VERSION:="dcc440c636d21cb475a324e5fd85706f4b7befe8"}
+PSL1GHT_VERSION=${PSL1GHT_VERSION:="a4631bc16788741a013c861746e87d532e1c6dbf"}
 
 ## Download the source code.
 wget "https://github.com/ps3aqua/PSL1GHT/archive/${PSL1GHT_VERSION}.tar.gz" -O psl1ght-${PSL1GHT_VERSION}.tar.gz
