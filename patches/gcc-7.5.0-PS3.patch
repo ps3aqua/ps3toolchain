@@ -736,3 +736,25 @@ index 8f700eec85..b737abc006 100644
  }
 +
 +const struct host_hooks host_hooks = HOST_HOOKS_INITIALIZER;
+diff -urp old/zlib/zutil.h new/zlib/zutil.h
+--- old/zlib/zutil.h	2025-04-16 20:58:51
++++ new/zlib/zutil.h	2025-04-16 21:50:21
+@@ -137,17 +137,8 @@ extern z_const char * const z_errmsg[10]; /* indexed b
+ #  endif
+ #endif
+ 
+-#if defined(MACOS) || defined(TARGET_OS_MAC)
++#if defined(MACOS)
+ #  define OS_CODE  7
+-#  ifndef Z_SOLO
+-#    if defined(__MWERKS__) && __dest_os != __be_os && __dest_os != __win32_os
+-#      include <unix.h> /* for fdopen */
+-#    else
+-#      ifndef fdopen
+-#        define fdopen(fd,mode) NULL /* No fdopen() */
+-#      endif
+-#    endif
+-#  endif
+ #endif
+ 
+ #ifdef __acorn
