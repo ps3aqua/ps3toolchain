@@ -16,7 +16,7 @@ if [ ! -d ${BINUTILS} ]; then
   tar xfj ${BINUTILS}.tar.bz2
 
   ## Patch the source code.
-  if [ -f ../patches/${BINUTILS}-PS3.patch ]; then cat ../patches/${BINUTILS}-PS3.patch | patch -p1 -d ${BINUTILS}; fi
+  if [ -f ../patches/${BINUTILS}-PS3-PPU.patch ]; then cat ../patches/${BINUTILS}-PS3-PPU.patch | patch -p1 -d ${BINUTILS}; fi
 
   ## Replace config.guess and config.sub
   cp config.guess config.sub ${BINUTILS}
