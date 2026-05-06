@@ -35,7 +35,8 @@ cd ${GDB}/build-ppu
     --disable-nls \
     --disable-sim \
     --disable-werror \
-    --without-python
+    --without-python \
+    --with-system-zlib
 
 ## Compile and install.
 PROCS="$(grep -c '^processor' /proc/cpuinfo 2>/dev/null)" || ret=$?
