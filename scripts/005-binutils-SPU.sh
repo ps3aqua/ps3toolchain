@@ -38,7 +38,8 @@ cd ${BINUTILS}/build-spu
     --disable-werror \
     --with-gcc \
     --with-gnu-as \
-    --with-gnu-ld
+    --with-gnu-ld \
+    --with-system-zlib
 
 ## Compile and install.
 PROCS="$(grep -c '^processor' /proc/cpuinfo 2>/dev/null)" || ret=$?

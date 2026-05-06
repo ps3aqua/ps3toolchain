@@ -22,22 +22,6 @@ diff -urp old/readline/terminal.c new/readline/terminal.c
  #  include <sys/ioctl.h>
  #endif /* GWINSZ_IN_SYS_IOCTL && !TIOCGWINSZ */
  
-diff -urp old/gdb/common/enum-flags.h new/gdb/common/enum-flags.h
---- old/gdb/common/enum-flags.h	2019-09-21 00:04:41
-+++ new/gdb/common/enum-flags.h	2024-04-14 15:53:47
-@@ -81,9 +81,12 @@ struct enum_underlying_type
- template<typename T>
- struct enum_underlying_type
- {
-+  DIAGNOSTIC_PUSH
-+  DIAGNOSTIC_IGNORE_ENUM_CONSTEXPR_CONVERSION
-   typedef typename
-     integer_for_size<sizeof (T), static_cast<bool>(T (-1) < T (0))>::type
-     type;
-+  DIAGNOSTIC_POP
- };
- 
- template <typename E>
 diff -urp old/include/diagnostics.h new/include/diagnostics.h
 --- old/include/diagnostics.h	2019-02-27 05:51:50
 +++ new/include/diagnostics.h	2024-04-14 15:55:30
@@ -64,25 +48,26 @@ diff -urp old/include/diagnostics.h new/include/diagnostics.h
  #endif
  
  #endif /* DIAGNOSTICS_H */
-diff -urp old/zlib/zutil.h new/zlib/zutil.h
---- old/zlib/zutil.h	2025-04-16 20:58:51
-+++ new/zlib/zutil.h	2025-04-16 21:50:21
-@@ -137,17 +137,8 @@ extern z_const char * const z_errmsg[10]; /* indexed b
- #  endif
- #endif
+diff --git old/gdb/common/enum-flags.h new/gdb/common/enum-flags.h
+--- old/gdb/common/enum-flags.h
++++ new/gdb/common/enum-flags.h
+@@ -20,6 +20,8 @@
+ #ifndef COMMON_ENUM_FLAGS_H
+ #define COMMON_ENUM_FLAGS_H
  
--#if defined(MACOS) || defined(TARGET_OS_MAC)
-+#if defined(MACOS)
- #  define OS_CODE  7
--#  ifndef Z_SOLO
--#    if defined(__MWERKS__) && __dest_os != __be_os && __dest_os != __win32_os
--#      include <unix.h> /* for fdopen */
--#    else
--#      ifndef fdopen
--#        define fdopen(fd,mode) NULL /* No fdopen() */
--#      endif
--#    endif
--#  endif
- #endif
++#include <type_traits>
++
+ /* Type-safe wrapper for enum flags.  enum flags are enums where the
+   values are bits that are meant to be ORed together.
  
- #ifdef __acorn
+@@ -80,9 +82,7 @@ template<> struct integer_for_size<8, 1> { typedef int64_t type; };
+ template<typename T>
+ struct enum_underlying_type
+ {
+-  typedef typename
+-    integer_for_size<sizeof (T), static_cast<bool>(T (-1) < T (0))>::type
+-    type;
++  typedef typename std::underlying_type<T>::type type;
+ };
+ 
+ template <typename E>

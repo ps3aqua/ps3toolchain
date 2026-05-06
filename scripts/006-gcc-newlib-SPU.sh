@@ -58,6 +58,7 @@ CFLAGS_FOR_TARGET="-Os -fpic -ffast-math -ftree-vectorize -funroll-loops -fsched
     --enable-threads \
     --with-newlib \
     --enable-newlib-multithread \
+    --with-system-zlib \
     --with-pic
 
 ## Compile and install.
