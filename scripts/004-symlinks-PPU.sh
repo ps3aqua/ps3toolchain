@@ -18,4 +18,3 @@ for i in `ls powerpc64-ps3-elf-* | cut -c19-`; do
     ln -s powerpc64-ps3-elf-${i} ppu-${i}
   fi
 done
-

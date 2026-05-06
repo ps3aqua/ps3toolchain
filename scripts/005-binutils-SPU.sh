@@ -8,10 +8,6 @@ if [ ! -d ${BINUTILS} ]; then
   ## Download the source code.
   if [ ! -f ${BINUTILS}.tar.bz2 ]; then wget --continue https://ftp.gnu.org/gnu/binutils/${BINUTILS}.tar.bz2; fi
 
-  ## Download an up-to-date config.guess and config.sub
-  if [ ! -f config.guess ]; then wget --continue https://cgit.git.savannah.gnu.org/cgit/config.git/plain/config.guess; fi
-  if [ ! -f config.sub ]; then wget --continue https://cgit.git.savannah.gnu.org/cgit/config.git/plain/config.sub; fi
-
   ## Unpack the source code.
   tar xfj ${BINUTILS}.tar.bz2
 
@@ -19,7 +15,7 @@ if [ ! -d ${BINUTILS} ]; then
   cat ../patches/${BINUTILS}-PS3-SPU.patch | patch -p1 -d ${BINUTILS}
 
   ## Replace config.guess and config.sub
-  cp config.guess config.sub ${BINUTILS}
+  cp ../assets/config.guess ../assets/config.sub .
 
 fi
 
