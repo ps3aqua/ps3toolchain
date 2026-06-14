@@ -16,7 +16,7 @@ if [ ! -d "${GCC}-SPU" ]; then
 
   ## Patch the source code.
   cat ../patches/${GCC}-PS3.patch | patch -p1 -d ${GCC}-SPU
-  cat ../patches/newlib-${NEWLIB}-PS3.patch | patch -p1 -d newlib-${NEWLIB}
+  cat ../patches/newlib-${NEWLIB}-PS3-SPU.patch | patch -p1 -d newlib-${NEWLIB}
 
   ## Enter the source code directory.
   cd ${GCC}-SPU
