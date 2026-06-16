@@ -413,7 +413,7 @@ diff -urpN old/gcc/config/rs6000/cell64lv2.h new/gcc/config/rs6000/cell64lv2.h
 +
 +#define GLIBC_DYNAMIC_LINKER32 "%(dynamic_linker_prefix)/lib/ld.so.1"
 +
-+#define STARTFILE_LV2_SPEC "lv2-crti.o%s crtbegin.o%s lv2-crt0.o%s lv2-sprx.o%s"
++#define STARTFILE_LV2_SPEC "lv2-crti.o%s crtbegin.o%s lv2-crt0.o%s lv2-prx.o%s"
 +
 +#define ENDFILE_LV2_SPEC "crtend.o%s lv2-crtn.o%s"
 +
