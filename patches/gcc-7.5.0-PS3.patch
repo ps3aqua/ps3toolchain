@@ -413,11 +413,11 @@ diff -urpN old/gcc/config/rs6000/cell64lv2.h new/gcc/config/rs6000/cell64lv2.h
 +
 +#define GLIBC_DYNAMIC_LINKER32 "%(dynamic_linker_prefix)/lib/ld.so.1"
 +
-+#define STARTFILE_LV2_SPEC "lv2-crti.o%s crtbegin.o%s lv2-crt0.o%s lv2-prx.o%s"
++#define STARTFILE_LV2_SPEC "lv2-crti.o%s crtbegin.o%s %{!mprx:lv2-crt0.o%s} %{!mprx:lv2-prx.o%s}"
 +
 +#define ENDFILE_LV2_SPEC "crtend.o%s lv2-crtn.o%s"
 +
-+#define LINK_START_LV2_SPEC "-T lv2.ld%s"
++#define LINK_START_LV2_SPEC "%{mprx:-T lv2-prx.ld%s} %{!mprx:-T lv2.ld%s}"
 +
 +#define LINK_OS_LV2_SPEC32 "-m elf32ppc"
 +#define LINK_OS_LV2_SPEC64 "-m elf64ppc"
@@ -600,6 +600,16 @@ diff -urpN old/gcc/config/rs6000/cell64lv2.h new/gcc/config/rs6000/cell64lv2.h
 +   enabling the __float128 keyword.  */
 +#undef	TARGET_FLOAT128_ENABLE_TYPE
 +#define TARGET_FLOAT128_ENABLE_TYPE 1
+--- old/gcc/config/rs6000/rs6000.opt	2026-05-27 16:50:44
++++ new/gcc/config/rs6000/rs6000.opt	2026-05-27 16:50:40
+@@ -705,3 +705,7 @@
+ ;; branches via the CTR.
+ mspeculate-indirect-jumps
+ Target Undocumented Var(rs6000_speculate_indirect_jumps) Init(1) Save
++
++mprx
++Target Var(TARGET_PRX)
++Build PRX module
 diff -urpN old/gcc/config/rs6000/rs6000.c new/gcc/config/rs6000/rs6000.c
 --- old/gcc/config/rs6000/rs6000.c	2019-11-01 21:30:26.000000000 +0100
 +++ new/gcc/config/rs6000/rs6000.c	2022-02-13 13:54:53.000000000 +0100
